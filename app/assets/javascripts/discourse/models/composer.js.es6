@@ -133,11 +133,6 @@ const Composer = Discourse.Model.extend({
     }
   }.property('loading', 'canEditTitle', 'titleLength', 'targetUsernames', 'replyLength', 'categoryId', 'missingReplyCharacters'),
 
-  /**
-    Is the title's length valid?
-
-    @property titleLengthValid
-  **/
   titleLengthValid: function() {
     if (Discourse.User.currentProp('admin') && this.get('post.static_doc') && this.get('titleLength') > 0) return true;
     if (this.get('titleLength') < this.get('minimumTitleLength')) return false;
@@ -356,8 +351,8 @@ const Composer = Discourse.Model.extend({
 
     if (opts.postId) {
       this.set('loading', true);
-      Discourse.Post.load(opts.postId).then(function(result) {
-        composer.set('post', result);
+      this.store.find('post', opts.postId).then(function(post) {
+        composer.set('post', post);
         composer.set('loading', false);
       });
     }
@@ -370,10 +365,10 @@ const Composer = Discourse.Model.extend({
 
       this.setProperties(topicProps);
 
-      Discourse.Post.load(opts.post.get('id')).then(function(result) {
+      this.store.find('post', opts.post.get('id')).then(function(post) {
         composer.setProperties({
-          reply: result.get('raw'),
-          originalText: result.get('raw'),
+          reply: post.get('raw'),
+          originalText: post.get('raw'),
           loading: false
         });
       });

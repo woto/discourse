@@ -33,8 +33,15 @@ const _moreWidgets = [
   {id: 224, name: 'Good Repellant'}
 ];
 
+function loggedIn() {
+  return !!Discourse.User.current();
+}
+
 export default function() {
+
   const server = new Pretender(function() {
+
+    const fixturesByUrl = {};
 
     // Load any fixtures automatically
     const self = this;
@@ -44,12 +51,27 @@ export default function() {
         if (fixture && fixture.default) {
           const obj = fixture.default;
           Ember.keys(obj).forEach(function(url) {
+            fixturesByUrl[url] = obj[url];
             self.get(url, function() {
               return response(obj[url]);
             });
           });
         }
       }
+    });
+
+    this.get('/composer-messages', () => { return response([]); });
+
+    this.get("/latest.json", () => {
+      const json = fixturesByUrl['/latest.json'];
+
+      if (loggedIn()) {
+        // Stuff to let us post
+        json.topic_list.can_create_topic = true;
+        json.topic_list.draft_key = "new_topic";
+        json.topic_list.draft_sequence = 1;
+      }
+      return response(json);
     });
 
     this.get("/t/id_for/:slug", function() {
@@ -131,7 +153,6 @@ export default function() {
 
     this.delete('/widgets/:widget_id', success);
   });
-
 
   server.prepareBody = function(body){
     if (body && typeof body === "object") {

@@ -1,10 +1,8 @@
+import { logIn } from 'helpers/qunit-helpers';
+
 module("Discourse.Composer", {
   setup: function() {
-    sandbox.stub(Discourse.User, 'currentProp').withArgs('admin').returns(false);
-  },
-
-  teardown: function() {
-    Discourse.User.currentProp.restore();
+    logIn();
   }
 });
 
@@ -202,15 +200,9 @@ test('open with a quote', function() {
 
 module("Discourse.Composer as admin", {
   setup: function() {
+    logIn();
     Discourse.SiteSettings.min_topic_title_length = 5;
     Discourse.SiteSettings.max_topic_title_length = 10;
-    sandbox.stub(Discourse.User, 'currentProp').withArgs('admin').returns(true);
-  },
-
-  teardown: function() {
-    Discourse.SiteSettings.min_topic_title_length = 15;
-    Discourse.SiteSettings.max_topic_title_length = 255;
-    Discourse.User.currentProp.restore();
   }
 });
 
