@@ -160,6 +160,7 @@ en:
   next_page: "next page →"
   prev_page: "← previous page"
   page_num: "Page %{num}"
+  home_title: "Home"
   topics_in_category: "Topics in the '%{category}' category"
   rss_posts_in_topic: "RSS feed of '%{topic}'"
   rss_topics_in_category: "RSS feed of topics in the '%{category}' category"
@@ -984,7 +985,7 @@ en:
     email_time_window_mins: "Wait (n) minutes before sending any notification emails, to give users a chance to edit and finalize their posts."
     email_posts_context: "How many prior replies to include as context in notification emails."
     flush_timings_secs: "How frequently we flush timing data to the server, in seconds."
-    max_word_length: "The maximum allowed word length, in characters, in a topic title."
+    title_max_word_length: "The maximum allowed word length, in characters, in a topic title."
     title_min_entropy: "The minimum entropy (unique characters, non-english count for more) required for a topic title."
     body_min_entropy: "The minimum entropy (unique characters, non-english count for more) required for a post body."
 
@@ -1101,6 +1102,7 @@ en:
 
     disable_edit_notifications: "Disables edit notifications by the system user when 'download_remote_images_to_local' is active."
 
+    full_name_required: "Full name is a required field of a user's profile."
     enable_names: "Show the user's full name on their profile, user card, and emails. Disable to hide full name everywhere."
     display_name_on_posts: "Show a user's full name on their posts in addition to their @username."
     invites_per_page: "Default invites shown on the user page."
@@ -1157,6 +1159,7 @@ en:
     moved_post: "%{display_username} moved your post to %{link}"
     private_message: "%{display_username} sent you a message: %{link}"
     invited_to_private_message: "%{display_username} invited you to a message: %{link}"
+    invited_to_topic: "%{display_username} invited you to a topic: %{link}"
     invitee_accepted: "%{display_username} accepted your invitation"
     linked: "%{display_username} linked you in %{link}"
     granted_badge: "You earned %{link}"
@@ -1596,21 +1599,21 @@ en:
       text_body_template: "We're sorry, but your data export failed. Please check the logs or contact a staff member."
 
     email_reject_trust_level:
-      subject_template: "Email issue -- Insufficient Trust Level"
+      subject_template: "[%{site_name}] Email issue -- Insufficient Trust Level"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         Your account does not have the required trust level to post new topics to this email address. If you believe this is in error, contact a staff member.
 
     email_reject_no_account:
-      subject_template: "Email issue -- Unknown Account"
+      subject_template: "[%{site_name}] Email issue -- Unknown Account"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         There is no known user account with this email address. Try sending from a different email address, or contact a staff member.
 
     email_reject_empty:
-      subject_template: "Email issue -- No Content"
+      subject_template: "[%{site_name}] Email issue -- No Content"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
@@ -1619,21 +1622,21 @@ en:
         If you're getting this and you _did_ include content, try again with HTML content included in your email (not just plain text only).
 
     email_reject_parsing:
-      subject_template: "Email issue -- Content unrecognized"
+      subject_template: "[%{site_name}] Email issue -- Content unrecognized"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         We couldn't find your reply in the provided email. **Make sure your reply is at the top of the email** -- we can't process inline replies.
 
     email_reject_post_error:
-      subject_template: "Email issue -- Posting error"
+      subject_template: "[%{site_name}] Email issue -- Posting error"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         Some possible causes are: complex formatting, message too large, message too small. Please try again, or post via the website if this continues.
 
     email_reject_post_error_specified:
-      subject_template: "Email issue -- Posting error"
+      subject_template: "[%{site_name}] Email issue -- Posting error"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
@@ -1644,42 +1647,42 @@ en:
         If you can correct the problem, please try again.
 
     email_reject_reply_key:
-      subject_template: "Email issue -- Unknown Reply Key"
+      subject_template: "[%{site_name}] Email issue -- Unknown Reply Key"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         The provided reply key is invalid or unknown, so we don't know what this email is in reply to. Contact a staff member.
 
     email_reject_destination:
-      subject_template: "Email issue -- Unknown To: Address"
+      subject_template: "[%{site_name}] Email issue -- Unknown To: Address"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         None of the destination addresses are recognized. Please make sure that the site address is in the To: line (not Cc: or Bcc:), and that you are sending to the correct email address provided by staff.
 
     email_reject_topic_not_found:
-      subject_template: "Email issue -- Topic Not Found"
+      subject_template: "[%{site_name}] Email issue -- Topic Not Found"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         The topic is not found, it may have been deleted. If you believe this is in error, contact a staff member.
 
     email_reject_topic_closed:
-      subject_template: "Email issue -- Topic Closed"
+      subject_template: "[%{site_name}] Email issue -- Topic Closed"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         The topic is closed. If you believe this is in error, contact a staff member.
 
     email_reject_auto_generated:
-      subject_template: "Email issue -- Auto Generated Reply"
+      subject_template: "[%{site_name}] Email issue -- Auto Generated Reply"
       text_body_template: |
         We're sorry, but your email message to %{destination} (titled %{former_title}) didn't work.
 
         Your email reply was auto generated, which we don't accept. If you believe this is in error, contact a staff member.
 
     email_error_notification:
-      subject_template: "Email issue -- POP authentication error"
+      subject_template: "[%{site_name}] Email issue -- POP authentication error"
       text_body_template: |
         There has been an authentication error while polling mails from the POP server.
 
@@ -1772,6 +1775,13 @@ en:
 
         Please visit this link to view the topic: %{base_url}%{url}
 
+    user_invited_to_topic:
+      subject_template: "[%{site_name}] %{username} invited you to a topic '%{topic_title}'"
+      text_body_template: |
+        %{username} invited you to a topic '%{topic_title}' on %{site_name}:
+
+        Please visit this link to view the topic: %{base_url}%{url}
+
     user_replied:
       subject_template: "[%{site_name}] %{topic_title}"
       text_body_template: |
@@ -1824,7 +1834,7 @@ en:
 
     digest:
       why: "A brief summary of %{site_link} since your last visit on %{last_seen_at}"
-      subject_template: "[%{site_name}] Digest for %{date}"
+      subject_template: "[%{site_name}] Digest"
       new_activity: "New activity on your topics and posts:"
       top_topics: "Popular posts"
       other_new_topics: "Popular topics"
@@ -2322,7 +2332,76 @@ en:
 
   badges:
     long_descriptions:
+      autobiographer: |
+        Blah blah blah
+        Blah blah blah
+      first_like: |
+        Blah blah blah
+        Blah blah blah
+      first_link: |
+        Blah blah blah
+        Blah blah blah
+      first_quote: |
+        Blah blah blah
+        Blah blah blah
+      first_share: |
+        Blah blah blah
+        Blah blah blah
+      read_guidelines: |
+        Blah blah blah
+        Blah blah blah
+      reader: |
+        Blah blah blah
+        Blah blah blah
+      editor: |
+        Blah blah blah
+        Blah blah blah
       first_flag: |
         Flagging is critical to the health of your community. If you notice any posts that require moderator attention please
         do not hesitate to flag. You may also use the flagging dialog to send <b>messages</b> to users once you reach
         trust level 1.
+      nice_share: |
+        Blah blah blah
+        Blah blah blah
+      welcome: |
+        Blah blah blah
+        Blah blah blah
+      anniversary: |
+        Blah blah blah
+        Blah blah blah
+      good_share: |
+        Blah blah blah
+        Blah blah blah
+      great_share: |
+        Blah blah blah
+        Blah blah blah
+      nice_post: |
+        Blah blah blah
+        Blah blah blah
+      nice_topic: |
+        Blah blah blah
+        Blah blah blah
+      good_post: |
+        Blah blah blah
+        Blah blah blah
+      good_topic: |
+        Blah blah blah
+        Blah blah blah
+      great_post: |
+        Blah blah blah
+        Blah blah blah
+      great_topic: |
+        Blah blah blah
+        Blah blah blah
+      basic: |
+        Blah blah blah
+        Blah blah blah
+      member: |
+        Blah blah blah
+        Blah blah blah
+      regular: |
+        Blah blah blah
+        Blah blah blah
+      leader: |
+        Blah blah blah
+        Blah blah blah
