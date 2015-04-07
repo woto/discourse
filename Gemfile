@@ -101,7 +101,7 @@ else
 end
 
 
-gem 'onebox'
+gem 'onebox', github: 'discourse/onebox'
 
 gem 'ember-rails'
 gem 'ember-source', '1.9.0.beta.4'
